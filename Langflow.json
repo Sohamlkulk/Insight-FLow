@@ -1,0 +1,55 @@
+{
+  "components": [
+    {
+      "type": "Data",
+      "name": "AstraDBConnection",
+      "description": "Connects to DataStax Astra DB",
+      "config": {
+        "secure_connect_bundle": "secure-connect-insightflow.zip",
+        "application_token": "AstraCS:EUDZDbtxTNihxdhOkObcBJWO:b70b1efa2bb8e7acc606562a59a33d14c5dd727dcc64688c53abb71d191aa301",
+        "keyspace": "astra"
+      }
+    },
+    {
+      "type": "Agent",
+      "name": "ChatAgent",
+      "description": "Handles user queries and provides responses",
+      "config": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.7,
+        "max_tokens": 150
+      }
+    },
+    {
+      "type": "Tool",
+      "name": "DatabaseQueryTool",
+      "description": "Queries the Astra database for relevant information",
+      "config": {
+        "query": "SELECT * FROM social_media_performance WHERE platform = '{{platform}}' AND date >= '{{start_date}}' AND date <= '{{end_date}}'"
+      }
+    }
+  ],
+  "flows": [
+    {
+      "name": "SocialMediaAnalysisFlow",
+      "description": "Analyzes social media performance based on user input",
+      "components": [
+        {
+          "name": "AstraDBConnection",
+          "inputs": ["platform", "start_date", "end_date"],
+          "outputs": ["data"]
+        },
+        {
+          "name": "DatabaseQueryTool",
+          "inputs": ["data"],
+          "outputs": ["query_result"]
+        },
+        {
+          "name": "ChatAgent",
+          "inputs": ["query_result"],
+          "outputs": ["response"]
+        }
+      ]
+    }
+  ]
+}
