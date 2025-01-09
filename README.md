@@ -76,10 +76,11 @@ View the analysis result along with the chat history displayed below the input a
 - requirements.txt: List of dependencies required for the project.
 - .env: File for storing environment variables securely.
 
-## Demonstration
-https://youtu.be/U3UeG7rihoQ
 
 ## Notes
 Ensure you have a valid LangFlow APP_TOKEN before running the application.
 
 The API token is stored securely in the .env file and accessed through python-dotenv.
+
+
+Midnight-Coders* All Rights Reserved Copyright
